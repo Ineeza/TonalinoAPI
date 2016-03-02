@@ -11,7 +11,7 @@ gulp.task('run', ["build-es6"], function(){
 });
 
 gulp.task('run-as-production', ["build-es6"], function(){
-  exec('NODE_ENV=production $(npm bin)/babel-node main.js',function (err, stdout, stderr) { console.log(err) });
+  exec('sudo PATH=$PATH NODE_ENV=production $(npm bin)/babel-node main.js',function (err, stdout, stderr) { console.log(err) });
 });
 
 gulp.task("watch",function(){
