@@ -2,21 +2,28 @@ let connection = (process.env.NODE_ENV === "production") ? { host: "0.0.0.0", po
 
 import express from "express";
 var app = express();
-import mysqlSession from "connect-mysql-session";
-MySQLSessionStore = mysqlSession(express);
 
 import session from "express-session";
+import mysqlStore from "connect-mysql";
+let MySQLStore = mysqlStore(session);
 
-import router from './app/router';
+let options = {
+  config: {
+    database: 'tonalino',
+    user: 'root',
+    password: 'root'
+  }
+};
 
-// app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}));
-let sessionStore = express.session({
-  store: new MySQLSessionStore("tonalino", "root", "root", {}),
-  secret: "keyboard cat"
+let sessionStore = session({
+  store: new MySQLStore(options),
+  secret: "supersecretkeygoeshere",
+  saveUninitialized: true,
+  resave: true
 });
-
 app.use(sessionStore);
 
+import router from './app/router';
 router.run(app);
 
 console.log(connection);
