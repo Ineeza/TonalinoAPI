@@ -7,7 +7,11 @@ gulp.task('build-es6', function() {
 });
 
 gulp.task('run', ["build-es6"], function(){
-  exec('$(npm bin)/babel-node main.js',function (err, stdout, stderr) { console.log(err) });
+  exec('NODE_ENV=development $(npm bin)/babel-node main.js',function (err, stdout, stderr) { console.log(err) });
+});
+
+gulp.task('run-as-production', ["build-es6"], function(){
+  exec('NODE_ENV=production $(npm bin)/babel-node main.js',function (err, stdout, stderr) { console.log(err) });
 });
 
 gulp.task("watch",function(){
@@ -17,3 +21,4 @@ gulp.task("watch",function(){
 });
 
 gulp.task("default", ["watch", "run"]);
+gulp.task("production", ["watch", "run-as-production"]);

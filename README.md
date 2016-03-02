@@ -7,7 +7,7 @@
 - mysql
 
 ## run
-- `$(npm bin)/babel-node main.js`
+- `gulp production`
 
 # infrastructure
 - `wget git.io/nodebrew`
@@ -23,3 +23,7 @@
 - `ln -s ../babel-cli/bin/babel-node.js ./babel-node`
 - `npm i -g npm-install-missing`
 - `npm-install-missing`
+- `sudo mysqld_safe &`
+- `mysqladmin -u root password root`
+- `mysql -u root -p`
+- `CREATE DATABASE tonalino`
