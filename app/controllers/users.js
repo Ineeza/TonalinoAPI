@@ -1,5 +1,6 @@
 export default {
   create: (req, res)=>{
+    console.log('------------------');
     // もしここにアクセスしたユーザーのfacebook_idが
       // 既にDBに存在してたらcreateなし、SessionIDを作成してuser_idを保存して、session_idを返してあげる
       // DBに存在してなかったらcreateあり、session_idを返す
