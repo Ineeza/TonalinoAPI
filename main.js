@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import corser from 'corser';
 import mysqlStore from "connect-mysql";
 import router from './app/router';
 
@@ -23,6 +24,7 @@ let sessionStore = session({
 
 
 app.use(sessionStore);
+app.use(corser.create());
 router.run(app);
 console.log(connection);
 app.listen(connection.port, connection.host);
