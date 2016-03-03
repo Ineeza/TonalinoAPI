@@ -7,6 +7,7 @@ import router from './app/router';
 import orm from 'orm';
 import qOrm from 'q-orm';
 import UserModel from './app/models/user.js';
+import bodyParser from 'body-parser';
 
 // vars
 let connection = (process.env.NODE_ENV === "production") ? { host: "0.0.0.0", port: 80 } : { host: "localhost", port: 3000 };
@@ -41,6 +42,8 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
 // register middlewares
 app.use(sessionStore);
 app.use(corser.create());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // run
 router.run(app);
