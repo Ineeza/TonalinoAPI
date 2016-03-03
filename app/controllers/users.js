@@ -1,18 +1,15 @@
 export default {
   create: (req, res)=>{
-    console.log('------------------');
-    // もしここにアクセスしたユーザーのfacebook_idが
-      // 既にDBに存在してたらcreateなし、SessionIDを作成してuser_idを保存して、session_idを返してあげる
-      // DBに存在してなかったらcreateあり、session_idを返す
-    let data = {
-      facebook_id: "xxxxxxxxx",
-      facebook_name: "xxxxxxxxxx"
-    };
-    let obj = {
-      id: data.facebook_id,
-      user_name: data.facebook_name,
-      role: "eater"
-    };
-    res.send(obj);
+    req.models.user.find({ facebook_id: req.body.facebook_id }).then(users=>{
+      console.log(users);
+      if(users.length > 0){
+        // session create
+        res.send(false);
+      } else {
+        // create user
+          // if success session create
+        res.send(true);
+      }
+    });
   }
 }

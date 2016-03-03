@@ -25,7 +25,9 @@
     "gulp": "^3.9.1",
     "gulp-webpack": "^1.5.0",
     "mysql": "^2.10.2",
+    "orm": "^2.1.30",
     "promise": "^7.1.1",
+    "q-orm": "0.0.3",
     "webpack": "^1.12.14"
   },
   "devDependencies": {
