@@ -1,5 +1,6 @@
 export default {
   show: (req, res)=>{
+    console.log('/me/show accessed');
     let obj = {
       id: 1,
       user_name: "shogo",
