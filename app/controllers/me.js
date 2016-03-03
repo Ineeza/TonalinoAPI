@@ -1,17 +1,17 @@
 export default {
   show: (req, res)=>{
-    console.log('/me/show accessed');
-
-    let obj = {
-      id: 1,
-      user_name: "shogo",
-      role: "cooker"
-    };
-    res.send(obj);
+    res.send(req.session.user);
   },
 
   update: (req, res)=>{
-    res.send(true);
+    Object.keys(req.body).map(key=>{
+      req.session.user[key] = req.body[key];
+    });
+    req.models.user.qUpdate(req.session.user).then(_user=>{
+      req.session.save(_=>{
+        res.send(_user);
+      });
+    });
   },
 
   delete: (req, res)=>{
