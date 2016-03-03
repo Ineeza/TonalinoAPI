@@ -7,13 +7,13 @@ gulp.task('build-es6', function() {
 });
 
 gulp.task('run', ["build-es6"], function(){
-  exec('NODE_ENV=development $(npm bin)/babel-node main.js > tonalino_development.log',function (err, stdout, stderr) { 
+  exec('NODE_ENV=development $(npm bin)/babel-node main.js $>> tonalino_development.log',function (err, stdout, stderr) { 
     console.log(err, stdout, stderr);
   });
 });
 
 gulp.task('run-as-production', ["build-es6"], function(){
-  exec('sudo PATH=$PATH NODE_ENV=production $(npm bin)/babel-node main.js > tonalino_production.log',function (err, stdout, stderr) {
+  exec('sudo PATH=$PATH NODE_ENV=production $(npm bin)/babel-node main.js &>> tonalino_production.log ',function (err, stdout, stderr) {
     console.log(err, stdout, stderr);
   });
 });
