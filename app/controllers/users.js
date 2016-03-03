@@ -1,17 +1,25 @@
 export default {
   create: (req, res)=>{
-    console.log('user create body', req.body);
-    console.log('user create query', req.query);
-    console.log('user create params', req.params);
     req.models.user.qFind({ facebook_id: req.body.facebook_id }).then(users=>{
       console.log('users', users);
       if(users.length > 0){
+        var user = users[0];
         // session create
         res.send(false);
       } else {
-        // create user
+        var user = {
+          facebook_id: req.body.facebook_id,
+          user_name: req.body.facebook_name,
+          role: "eater"
+        };
+        req.models.user.qCreate(user).then(items=>{
+          console.log("created user", items);
           // if success session create
-        res.send(true);
+          res.session.id = items[0].id;
+          res.session.save(_=>{
+            res.send(true);
+          });
+        })
       }
     });
   }

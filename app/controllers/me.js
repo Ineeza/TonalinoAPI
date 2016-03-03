@@ -9,7 +9,14 @@ export default {
     };
     res.send(obj);
   },
+
   update: (req, res)=>{
     res.send(true);
+  },
+
+  delete: (req, res)=>{
+    req.session.destroy(function(err) {
+      res.send(true);
+    })
   }
 }
