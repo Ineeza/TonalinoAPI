@@ -34,7 +34,7 @@ let sessionStore = session({
 app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}@${connection.host}/${options.config.database}`, {
   define: (db, models, next)=>{
     models.user = UserModel.init(db);
-    next();
+    db.qSync().then(next);
   }
 }));
 
