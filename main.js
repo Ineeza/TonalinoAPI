@@ -42,7 +42,7 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
 // register middlewares
 app.use(sessionStore);
 app.use(corser.create());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // run
