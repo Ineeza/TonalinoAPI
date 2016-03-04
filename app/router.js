@@ -8,6 +8,7 @@ export default {
     app.put("/api/me", me_controller.update);
     app.delete("/api/me", me_controller.delete);
     app.get("/api/me/candidates", candidates_controller.index);
+    app.get("/api/users", users_controller.index);
     app.post("/api/users", users_controller.create);
   }
 };

@@ -6,6 +6,8 @@ export default class User {
       user_name      : String,
       facebook_id    : String,
       description    : String,
+      picture        : String,
+      email          : String,
       role           : String
     }, {
       methods: {
