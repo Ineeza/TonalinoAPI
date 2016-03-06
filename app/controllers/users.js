@@ -1,16 +1,9 @@
 export default {
   index: (req, res)=>{
-    var q = req.body.id.map((id,i)=>{
-      return `id=${id}${(req.body.id.length-1 !== i) ? " OR " : ""}`;
-    }).join("");
-    req.models.User
-     .find({})
-     .where(q)
-     .all(users=>{
-       console.log(users);
-       res.send(users);
-     });
-  }
+    req.models.User.qFind({ id: req.query.id }).then(users=>{
+      res.send(users);
+    });
+  },
   create: (req, res)=>{
     req.models.User.qFind({ facebook_id: req.body.facebook_id }).then(users=>{
       if(users.length > 0){

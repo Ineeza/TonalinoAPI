@@ -13,6 +13,20 @@ export default class User {
       methods: {
         isEater: _=>{
           return this.role === "eater";
+        },
+        getCandidates: current_user => {
+          var self = this;
+          return new Promise((resolve, reject)=>{
+            console.log(current_user);
+            self.qFind({ role: current_user.role }).then(users=>{
+              console.log(users.length);
+              var excluded_users = users.filder(user=>{
+                return user.id != current_user.id;
+              });
+              console.log(excluded_users.length);
+              resolve(excluded_users);
+            });
+          });
         }
       },
       validations: {
