@@ -4,6 +4,11 @@ import users_controller from './controllers/users';
 
 export default {
   run: (app)=>{
+    app.all("/api/*", (req, res, next)=>{
+      console.log('----------------');
+      console.log(req.hostname, req.get('origin'));
+      next();
+    });
     app.get("/api/me", me_controller.show);
     app.put("/api/me", me_controller.update);
     app.delete("/api/me", me_controller.delete);
