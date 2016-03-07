@@ -23,6 +23,11 @@ gulp.task("watch",function(){
   gulp.watch("app/**/*.json",["run"]);
   gulp.watch("entry.js",["run"]);
 });
+gulp.task("watch-as-production",function(){
+  gulp.watch(["app/**/*.js", 'main.js'],["run-as-production"]);
+  gulp.watch("app/**/*.json",["run-as-production"]);
+  gulp.watch("entry.js",["run-as-production"]);
+});
 
 gulp.task("default", ["watch", "run"]);
-gulp.task("production", ["watch", "run-as-production"]);
+gulp.task("production", ["watch-as-production", "run-as-production"]);

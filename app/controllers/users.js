@@ -1,6 +1,7 @@
 export default {
   index: (req, res)=>{
     req.models.User.qFind({ id: req.query.id }).then(users=>{
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
       res.send(users);
     });
   },
@@ -19,6 +20,7 @@ export default {
         };
         req.session.user = user;
         req.session.save(_=>{
+          res.header('Access-Control-Allow-Origin', req.headers.origin);
           res.send(req.session.user);
         });
       } else {
@@ -34,6 +36,7 @@ export default {
           user.id = _user.id;
           req.session.user = user;
           req.session.save(_=>{
+            res.header('Access-Control-Allow-Origin', req.headers.origin);
             res.send(req.session.user);
           });
         })

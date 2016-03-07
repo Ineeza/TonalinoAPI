@@ -1,5 +1,6 @@
 export default {
   show: (req, res)=>{
+    res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.status(200).send(req.session.user);
   },
 
@@ -14,6 +15,7 @@ export default {
       users[0].save(req.session.user, function(err, user){
         console.log('updated user', req.session.user);
         req.session.save(_=>{
+          res.header('Access-Control-Allow-Origin', req.headers.origin);
           res.send(req.session.user);
         });
       });
