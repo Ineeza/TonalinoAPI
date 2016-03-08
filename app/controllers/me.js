@@ -23,7 +23,8 @@ export default {
   },
 
   delete: (req, res)=>{
-    req.session.destroy(function(err) {
+    req.session.destroy(err=> {
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
       res.send(true);
     })
   }

@@ -8,6 +8,8 @@ export default class User {
       description    : String,
       picture        : String,
       email          : String,
+      zipcode        : Number,
+      area           : String,
       role           : String
     }, {
       methods: {
