@@ -10,7 +10,7 @@ export default {
     app.delete("/api/me", me_controller.delete);
 
     // TODO Push
-    app.get("/api/me/notification/dummy", notification_controller.create2);
+    app.post("/api/me/notification/sendto", notification_controller.sendto);
     app.put("/api/me/notification", notification_controller.create);
 
     app.get("/api/me/candidates", candidates_controller.index);

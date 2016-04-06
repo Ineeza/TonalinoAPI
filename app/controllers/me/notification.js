@@ -13,32 +13,38 @@ export default {
       res.send(excluded_users);
     });
   },
-  create2: (req, res)=>{
+  // Send to another user
+  sendto: (req, res)=>{
+    var json = req.body;
 
-    var message = new gcm.Message();
+    var gcm_message = new gcm.Message();
 
-    // TODO Some given values
-    var text = "となりのごはんほげ";
-
+    // Given values
+    var title = json.title;
+    var message = json.message;
+    var image = json.image;
+    var user_id = json.receiver_id;
 
     // Add notification payload as key value
-    message.addData('title', 'タイトルですよ。');
-    message.addData('message', 'となりのごはんがきましたhoge');
-    message.addData('image', 'https://lh3.ggpht.com/uA_9YvBqat-4ftl9Kn40fGuf_6GmDUKuba_Vjn2fo9CnojlOGandrcj2pLp67Q5Wb6I=w300');
+    gcm_message.addData('title', title);
+    gcm_message.addData('message', message);
+    gcm_message.addData('image', image);
 
-
-    var regTokens = ['dqG2VV6gvTM:APA91bGxa_5yfNS6BZ3KBzk_RloK83dpJ4FHohcIyXNYZ0lbOX_oD-Bybqkn-Zhlhzos5cqt2iD7cUNssA465YHAYzdtB_620uhAlC_1EcSm15I5V0gGEzwiaGbETme9NoGC3cufOoeM'];
+    var regTokens = "";
+    if(user_id == 1){
+      regTokens = ['dCNIYW8tdtU:APA91bFmkbmO6lRJ_98bAqZ5EZ3KrpACM4R1WWg1Qhsw5DcsTCTP8btlojaxbQ3w64urMSyvrBJSP6YGhZVXKz_0g7uCKA8IsICa3BtZeBYiqaGl6jJ5FACohmIYopqlgSDbltJaapAb'];
+    }
 
     // Set up the sender with you API key
     var sender = new gcm.Sender('AIzaSyCOCyeaPBtatF-VcfZIzb87lTXDsKwMJk0');
 
     // Now the sender can be used to send messages
-    sender.send(message, { registrationTokens: regTokens }, function (err, response) {
-    	if(err) console.error(err);
-    	else 	console.log(response);
+    sender.send(gcm_message, { registrationTokens: regTokens }, function (err, response) {
+    	// if(err) console.error(err);
+    	// else 	console.log(response);
     });
 
-    res.send(text);
+    res.send(message);
   }
 
 }
