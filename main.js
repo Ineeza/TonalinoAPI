@@ -11,7 +11,6 @@ import bodyParser from 'body-parser';
 import methodOverride from "method-override";
 
 
-
 // vars
 let connection = (process.env.NODE_ENV === "production") ? { host: "0.0.0.0", port: 80 } : { host: "localhost", port: 3000 };
 let options = {
