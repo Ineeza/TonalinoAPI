@@ -1,18 +1,6 @@
 import gcm from 'node-gcm';
 
 export default {
-  create: (req, res)=>{
-    let user = req.session.user;
-    let candidate_role = (user.role === "eater") ? "cooker" : "eater";
-    req.models.User
-    .qFind({ role: candidate_role }).then(users=>{
-      var excluded_users = users.filter(user=>{
-        return user.id != req.session.user.id;
-      });
-      res.header('Access-Control-Allow-Origin', req.headers.origin);
-      res.send(excluded_users);
-    });
-  },
   // Send to another user
   sendto: (req, res)=>{
     var json = req.body;
@@ -31,8 +19,10 @@ export default {
     gcm_message.addData('image', image);
 
     var regTokens = "";
-    if(user_id == 1){
+    if(user_id == 1 || !req.session.user.registrationID){
       regTokens = ['dCNIYW8tdtU:APA91bFmkbmO6lRJ_98bAqZ5EZ3KrpACM4R1WWg1Qhsw5DcsTCTP8btlojaxbQ3w64urMSyvrBJSP6YGhZVXKz_0g7uCKA8IsICa3BtZeBYiqaGl6jJ5FACohmIYopqlgSDbltJaapAb'];
+    } else {
+      regTokens = req.session.user.registrationID;
     }
 
     // Set up the sender with you API key

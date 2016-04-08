@@ -11,7 +11,6 @@ export default {
 
     // TODO Push
     app.post("/api/me/notification/sendto", notification_controller.sendto);
-    app.put("/api/me/notification", notification_controller.create);
 
     app.get("/api/me/candidates", candidates_controller.index);
     app.get("/api/users", users_controller.index);

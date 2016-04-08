@@ -3,14 +3,15 @@ import orm from 'orm';
 export default class User {
   static init(db){
     return db.qDefine("users", {
-      user_name      : String,
-      facebook_id    : String,
-      description    : String,
-      picture        : String,
-      email          : String,
-      zipcode        : Number,
-      area           : String,
-      role           : String
+      user_name             : String,
+      facebook_id           : String,
+      description           : String,
+      picture               : String,
+      email                 : String,
+      zipcode               : Number,
+      area                  : String,
+      role                  : String,
+      registrationID        : String
     }, {
       methods: {
         isEater: _=>{
