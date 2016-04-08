@@ -1,11 +1,14 @@
 export default {
   index: (req, res)=>{
-    var src = [
-      { id: 14, user_name: "くまもん", channel_url: "", role: "cooker" },
-      { id: 15, user_name: "桐谷美玲", channel_url: "", role: "cooker" },
-      { id: 16, user_name: "JOY", channel_url: "", role: "cooker" },
-      { id: "hogehoge", user_name: "はなげ", channel_url: "", role: "cooker" }
-    ];
-    res.send(src);
+    let user = req.session.user;
+    let candidate_role = (user.role === "eater") ? "cooker" : "eater";
+    req.models.User
+    .qFind({ role: candidate_role }).then(users=>{
+      var excluded_users = users.filter(user=>{
+        return user.id != req.session.user.id;
+      });
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
+      res.send(excluded_users);
+    });
   }
 }
