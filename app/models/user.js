@@ -3,16 +3,31 @@ import orm from 'orm';
 export default class User {
   static init(db){
     return db.qDefine("users", {
-      user_name             : String,
-      facebook_id           : String,
+      userID                : Number,
+      username              : String,
+      facebookID            : String,
+      lineID                : String,
       description           : String,
-      picture               : String,
+      picture               : { type: "text", defaultValue: "/img/common/no_image.png" },
       email                 : String,
       zipcode               : Number,
-      area                  : String,
-      role                  : String,
-      registrationID        : String
+      area                  : { type: "text", defaultValue: null },
+      role                  : { type: "enum", values: ["eater", "cooker"], defaultValue: "eater" },
+      registrationID        : String,
+      createdDate           : { type: "date", time: true },
+      updatedDate           : { type: "date", time: true }
     }, {
+      hooks: {
+        beforeCreate: function(next){
+          this.createdDate = Date.now();
+          this.updatedDate = Date.now();
+          return next();
+        },
+        beforeUpdate: function(next){
+          this.updatedDate = Date.now();
+          return next();
+        }
+      },
       methods: {
         isEater: _=>{
           return this.role === "eater";

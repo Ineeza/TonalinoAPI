@@ -8,19 +8,10 @@ export default {
   },
 
   create: (req, res)=>{
+    console.log('users_controller.create');
     req.models.User.qFind({ facebook_id: req.body.facebook_id }).then(users=>{
+      console.log('users', users);
       if(users.length > 0){
-        /*
-        var user = {
-          id: users[0].id,
-          facebook_id: users[0].facebook_id,
-          user_name: users[0].user_name,
-          email: users[0].email,
-          picture: users[0].picture,
-          role: users[0].role,
-          description: users[0].description
-        };
-        */
         req.session.user = users[0];
         req.session.save(_=>{
           res.header('Access-Control-Allow-Origin', req.headers.origin);
