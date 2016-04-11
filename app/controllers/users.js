@@ -9,7 +9,8 @@ export default {
 
   create: (req, res)=>{
     console.log('users_controller.create');
-    req.models.User.qFind({ facebook_id: req.body.facebook_id }).then(users=>{
+    req.models.User.qFind({ facebook_id: req.body.facebook_id })
+    .then(users=>{
       console.log('users', users);
       if(users.length > 0){
         req.session.user = users[0];
@@ -34,6 +35,9 @@ export default {
           });
         })
       }
+    })
+    .catch(err=>{
+      console.error(err);
     });
   }
 }

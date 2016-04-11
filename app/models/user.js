@@ -3,7 +3,7 @@ import orm from 'orm';
 export default class User {
   static init(db){
     return db.qDefine("users", {
-      userID                : Number,
+      userID                : { type: "serial", key: true },
       username              : String,
       facebookID            : String,
       lineID                : String,
