@@ -7,7 +7,13 @@
 - mysql
 
 ## run
-- `gulp production`
+- `gulp prod`
+
+## kill
+- `gulp kill`
+
+## see process
+- `gulp see`
 
 # infrastructure
 - `wget git.io/nodebrew`

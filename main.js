@@ -89,3 +89,12 @@ app.use(bodyParser.json());
 router.run(app);
 console.log(connection);
 app.listen(connection.port, connection.host);
+
+
+process.on("exit", (a,b)=>{
+  console.log(a,b);
+});
+
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});

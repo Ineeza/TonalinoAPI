@@ -30,6 +30,12 @@ gulp.task('kill-as-production', ["build-es6"], function(){
     process.exit(0);
   });
 });
+gulp.task("see", function(){
+  exec("ps aux | grep babel | awk '{print $2;}'", function(err, stdout, stderr){
+    console.log(err, stdout, stderr);
+    process.exit(0);
+  });
+});
 
 gulp.task("watch",function(){
   gulp.watch(["app/**/*.js", 'main.js'],["run"]);
@@ -44,5 +50,5 @@ gulp.task("watch-as-production",function(){
 });
 
 gulp.task("default", ["watch", "run"]);
-gulp.task("production", ["watch-as-production", "run-as-production"]);
+gulp.task("prod", ["watch-as-production", "run-as-production"]);
 gulp.task("kill", ["kill-as-production"]);
