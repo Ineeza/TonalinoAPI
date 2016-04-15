@@ -1,21 +1,22 @@
 import orm from 'orm';
 
+
 export default class User {
   static init(db){
-    return db.qDefine("users", {
-      userID                : { type: "serial", key: true },
-      username              : String,
-      facebookID            : String,
-      lineID                : String,
+    return db.qDefine("user", {
+      user_ID               : { type: "serial", key: true },
+      name                  : String,
+      facebook_ID           : { type: "text", defaultValue: "" },
+      line_ID               : String,
       description           : String,
       picture               : { type: "text", defaultValue: "/img/common/no_image.png" },
       email                 : String,
-      zipcode               : Number,
-      area                  : { type: "text", defaultValue: null },
-      role                  : { type: "enum", values: ["eater", "cooker"], defaultValue: "eater" },
-      registrationID        : String,
-      createdDate           : { type: "date", time: true },
-      updatedDate           : { type: "date", time: true }
+      postalCode            : Number,
+      area                  : { type: "text", defaultValue: "" },
+      FK_user_TYPE_ID       : { type: "text", defaultValue: "" },
+      registration_ID       : String,
+      created_Date          : { type: "date", time: true },
+      updated_Date          : { type: "date", time: true }
     }, {
       hooks: {
         beforeCreate: function(next){
