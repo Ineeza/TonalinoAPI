@@ -5,17 +5,17 @@ export default class UserType {
     return db.qDefine("user_TYPE", {
       user_TYPE_ID          : { type: "serial", key: true },
       name                  : String,
-      created_Date          : { type: "date", time: true },
-      updated_Date          : { type: "date", time: true }
+      created_DATE          : { type: "date", time: true },
+      updated_DATE          : { type: "date", time: true }
     }, {
       hooks: {
         beforeCreate: function(next){
-          this.createdDate = Date.now();
-          this.updatedDate = Date.now();
+          this.created_DATE = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         },
         beforeUpdate: function(next){
-          this.updatedDate = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         }
       },

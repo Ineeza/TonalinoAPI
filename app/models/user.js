@@ -14,17 +14,17 @@ export default class User {
       email                 : String,
       postalCode            : String,
       area                  : { type: "text", big:true},
-      created_Date          : { type: "date", time: true },
-      updated_Date          : { type: "date", time: true }
+      created_DATE          : { type: "date", time: true },
+      updated_DATE          : { type: "date", time: true }
     }, {
       hooks: {
         beforeCreate: function(next){
-          this.createdDate = Date.now();
-          this.updatedDate = Date.now();
+          this.created_DATE = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         },
         beforeUpdate: function(next){
-          this.updatedDate = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         }
       },

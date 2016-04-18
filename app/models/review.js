@@ -7,19 +7,19 @@ export default class Review {
       review_ID          : { type: "serial", key: true },
       FK_FROM_user_ID    : Number,
       FK_TO_user_ID      : Number,
-      description        : String,
-      rate               : String,
-      created_Date       : { type: "date", time: true },
-      updated_Date       : { type: "date", time: true }
+      description        : { type: "text", big:true},
+      rate               : Number,
+      created_DATE       : { type: "date", time: true },
+      updated_DATE       : { type: "date", time: true }
     }, {
       hooks: {
         beforeCreate: function(next){
-          this.createdDate = Date.now();
-          this.updatedDate = Date.now();
+          this.created_DATE = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         },
         beforeUpdate: function(next){
-          this.updatedDate = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         }
       },

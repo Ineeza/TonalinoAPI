@@ -13,17 +13,17 @@ export default class Event {
       seats                 : Number,
       FROM_DATE             : { type: "date", time: true },
       TO_DATE               : { type: "date", time: true },
-      createdDate           : { type: "date", time: true },
-      updatedDate           : { type: "date", time: true }
+      created_DATE          : { type: "date", time: true },
+      updated_DATE          : { type: "date", time: true }
     }, {
       hooks: {
         beforeCreate: function(next){
-          this.createdDate = Date.now();
-          this.updatedDate = Date.now();
+          this.created_DATE = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         },
         beforeUpdate: function(next){
-          this.updatedDate = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         }
       },

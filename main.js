@@ -44,7 +44,7 @@ let sessionStore = session({
   store: new MySQLStore(options),
   secret: "supersecretkeygoeshere",
   saveUninitialized: true,
-  resave: true,
+  resave: true
 });
 
 

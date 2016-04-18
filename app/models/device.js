@@ -8,17 +8,17 @@ export default class Device {
       FK_user_ID        : Number,
       info              : { type: "text", big:true},
       registration_ID   : String,
-      created_Date      : { type: "date", time: true },
-      updated_Date      : { type: "date", time: true }
+      created_DATE      : { type: "date", time: true },
+      updated_DATE      : { type: "date", time: true }
     }, {
       hooks: {
         beforeCreate: function(next){
-          this.createdDate = Date.now();
-          this.updatedDate = Date.now();
+          this.created_DATE = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         },
         beforeUpdate: function(next){
-          this.updatedDate = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         }
       },
