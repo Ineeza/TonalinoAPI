@@ -1,30 +1,30 @@
 import orm from 'orm';
 
+
 export default class User {
   static init(db){
-    return db.qDefine("users", {
-      userID                : { type: "serial", key: true },
-      username              : String,
-      facebookID            : String,
-      lineID                : String,
-      description           : String,
+    return db.qDefine("user", {
+      user_ID               : { type: "serial", key: true },
+      FK_user_TYPE_ID       : Number,
+      name                  : String,
+      facebook_ID           : String,
+      line_ID               : String,
+      description           : { type: "text", big:true},
       picture               : { type: "text", defaultValue: "/img/common/no_image.png" },
       email                 : String,
-      zipcode               : Number,
-      area                  : { type: "text", defaultValue: null },
-      role                  : { type: "enum", values: ["eater", "cooker"], defaultValue: "eater" },
-      registrationID        : String,
-      createdDate           : { type: "date", time: true },
-      updatedDate           : { type: "date", time: true }
+      postalCode            : String,
+      area                  : { type: "text", big:true},
+      created_DATE          : { type: "date", time: true },
+      updated_DATE          : { type: "date", time: true }
     }, {
       hooks: {
         beforeCreate: function(next){
-          this.createdDate = Date.now();
-          this.updatedDate = Date.now();
+          this.created_DATE = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         },
         beforeUpdate: function(next){
-          this.updatedDate = Date.now();
+          this.updated_DATE = Date.now();
           return next();
         }
       },
