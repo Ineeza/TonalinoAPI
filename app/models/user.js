@@ -5,16 +5,15 @@ export default class User {
   static init(db){
     return db.qDefine("user", {
       user_ID               : { type: "serial", key: true },
+      FK_user_TYPE_ID       : Number,
       name                  : String,
-      facebook_ID           : { type: "text", defaultValue: "" },
+      facebook_ID           : String,
       line_ID               : String,
-      description           : String,
+      description           : { type: "text", big:true},
       picture               : { type: "text", defaultValue: "/img/common/no_image.png" },
       email                 : String,
-      postalCode            : Number,
-      area                  : { type: "text", defaultValue: "" },
-      FK_user_TYPE_ID       : { type: "text", defaultValue: "" },
-      registration_ID       : String,
+      postalCode            : String,
+      area                  : { type: "text", big:true},
       created_Date          : { type: "date", time: true },
       updated_Date          : { type: "date", time: true }
     }, {

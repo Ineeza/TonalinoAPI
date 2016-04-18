@@ -4,15 +4,15 @@ export default class Event {
   static init(db){
     return db.qDefine("event", {
       event_ID              : { type: "serial", key: true },
-      FK_event_TYPE_ID      : String,
+      FK_event_TYPE_ID      : Number,
       title                 : String,
-      description           : String,
-      place                 : String,
-      coverPicture          : String,
-      price                 : String,
-      seats                 : String,
-      FROM_DATE             : String,
-      TO_DATE               : String,
+      description           : { type: "text", big:true},
+      place                 : { type: "text", big:true},
+      coverPicture          : { type: "text", big:true},
+      price                 : Number,
+      seats                 : Number,
+      FROM_DATE             : { type: "date", time: true },
+      TO_DATE               : { type: "date", time: true },
       createdDate           : { type: "date", time: true },
       updatedDate           : { type: "date", time: true }
     }, {
