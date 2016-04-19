@@ -2,7 +2,7 @@ import _ from "lodash";
 
 var regToken = 'dCNIYW8tdtU:APA91bFmkbmO6lRJ_98bAqZ5EZ3KrpACM4R1WWg1Qhsw5DcsTCTP8btlojaxbQ3w64urMSyvrBJSP6YGhZVXKz_0g7uCKA8IsICa3BtZeBYiqaGl6jJ5FACohmIYopqlgSDbltJaapAb';
 
-var randID = (obj) => { Math.floor( Math.random() * obj.length ) ; }
+var randID = (obj) => 1 + Math.floor( Math.random() * obj.length );
 
 
 
@@ -25,9 +25,9 @@ notification_types.push({ name: "INVITED"  });
 
 
 var users = [];
-for(i=1; i < 10; i++){
+for(var i=1; i < 10; i++){
   users.push({
-    FK_user_TYPE_ID: i, name: `DummyUser${i}`,
+    FK_user_TYPE_ID: randID(user_types), name: `DummyUser${i}`,
     facebook_ID: "", line_ID: "", description: "", picture: "",
     email: "", postalCode: "154-0001", area: ""
   });
@@ -35,13 +35,13 @@ for(i=1; i < 10; i++){
 
 
 var devices = [];
-for(i=1; i < 10; i++){
+for(var i=1; i < 10; i++){
   devices.push({ FK_user_ID: randID(users), info: "iOS", registration_ID: regToken });
 }
 
 
 var events = [];
-for(i=1; i < 10; i++){
+for(var i=1; i < 10; i++){
   var t = new Date();
   var from_d = new Date(t.setDate(t.getDate() + 3));
   var to_d = new Date(t.setDate(t.getDate() + 6));
@@ -53,28 +53,30 @@ for(i=1; i < 10; i++){
 
 
 var event_members = [];
-for(i=1; i < 30; i++){
+for(var i=1; i < 30; i++){
   event_members.push({ FK_event_ID: randID(events), FK_user_ID: randID(users), FK_eventMember_TYPE_ID: randID(event_member_types) });
 }
 
 
 var notifications = [];
-notifications.push({ FK_event_ID: randID(events), FK_user_ID: randID(users),  });
+for(var i=1; i < 30; i++){
+  notifications.push({ FK_event_ID: randID(events), FK_user_ID: randID(users), FK_notification_TYPE_ID: randID(notification_types) });
+}
 
 
 var notification_is_reads = [];
-for(i=1; i < 10; i++){
+for(var i=1; i < 10; i++){
   notification_is_reads.push({ FK_notification_ID: randID(notifications), FK_user_ID: randID(users), isRead: false });
 }
 
 
 var reviews = [];
-for(i=1; i < 10; i++){
+for(var i=1; i < 10; i++){
   reviews.push({ FK_FROM_user_ID: randID(users), FK_TO_user_ID: randID(users), description: `review${i}`, rate: Math.floor(Math.random()*5*10)/10 });
 }
 
 export default {
-  devices: devices
+  devices: devices,
   users: users,
   user_types: user_types,
   events: events,

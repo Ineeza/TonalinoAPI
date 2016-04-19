@@ -64,9 +64,23 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
     models.NotificationIsRead = NotificationIsReadModel.init(db);
     models.Review = ReviewModel.init(db);
     db.qSync().then(_=>{
-      console.log(SEED_DATA);
-      process.exit(0);
-      next();
+      Promise.all([
+        models['User'].qCreate(SEED_DATA['users']),
+        models['Device'].qCreate(SEED_DATA['devices']),
+        models['UserType'].qCreate(SEED_DATA['user_types']),
+        models['EventType'].qCreate(SEED_DATA['event_types']),
+        models['EventMemberType'].qCreate(SEED_DATA['event_member_types']),
+        models['NotificationType'].qCreate(SEED_DATA['notification_types']),
+        models['Event'].qCreate(SEED_DATA['events']),
+        models['EventMember'].qCreate(SEED_DATA['event_members']),
+        models['Notification'].qCreate(SEED_DATA['notifications']),
+        models['NotificationIsRead'].qCreate(SEED_DATA['notification_is_reads']),
+        models['Review'].qCreate(SEED_DATA['reviews'])
+      ])
+      .then(data=>{
+        console.log(data);
+        process.exit(0);
+      });
     });
   }
 }));
