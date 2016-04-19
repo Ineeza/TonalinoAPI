@@ -1,27 +1,32 @@
 import gcm from 'node-gcm';
 
-var sendNotification = (req, res, regToken, gcm_message)=>{
-  // Set up the sender with you API key
-  var sender = new gcm.Sender('AIzaSyCOCyeaPBtatF-VcfZIzb87lTXDsKwMJk0');
-
-  // Now the sender can be used to send messages
-  sender.send(gcm_message, { registrationTokens: regTokens }, function (err, response) {
-    // if(err) console.error(err);
-    // else 	console.log(response);
-    console.error(req.headers.origin);
-    if(!err){
-      res.send("successed");
-    } else {
-      res.send("failed");
-    }
-  });
-};
-
-
-
 export default {
   // Send to another user
   sendto: (req, res)=>{
+
+    // send function
+    var sendNotification = (regTokens, gcm_message)=>{
+      // Set up the sender with you API key
+      var sender = new gcm.Sender('AIzaSyCOCyeaPBtatF-VcfZIzb87lTXDsKwMJk0');
+
+	/*
+      regTokens = [
+        'dvypELZLyCo:APA91bFFFYVmPiMm6STWMamrzzEXt28xswUBJlKDFkfJvaYQZZyyFk2lUmGcJcbH8gbE8TUCsBCeF5Beab3m-q-o2s4tDxj3MLKRIybcMSnD-_DFyV4gRcYvKfxDxPyWtHgB2mJbY-UK',
+        'fIA6o7pPymA:APA91bGm-hJ4WRNSBIyvoMMbEBfdQ3TSFSfOkbo7cfeVrXFURFgOwApqQ3vKuaBy_H2tZ8mId7JlIpIo42Hbfai3XajX9TPxtGp2HHNt5F_qLTD78ipSuxwsZAwQjOHSGDptIejoV-I0'
+      ];
+	*/
+
+      sender.send(gcm_message, { registrationTokens: regTokens }, function (err, response) {
+        // if(err) console.error(err);
+        // else 	console.log(response);
+        if(!err){
+          res.send("successed");
+        } else {
+          res.send("failed");
+        }
+      });
+    };
+
     var json = req.body;
 
     var gcm_message = new gcm.Message();
@@ -43,25 +48,44 @@ export default {
     gcm_message.addData('image', image);
 
     var regTokens = "";
-    //if(user_id == 1){
-      //regTokens = ['dCNIYW8tdtU:APA91bFmkbmO6lRJ_98bAqZ5EZ3KrpACM4R1WWg1Qhsw5DcsTCTP8btlojaxbQ3w64urMSyvrBJSP6YGhZVXKz_0g7uCKA8IsICa3BtZeBYiqaGl6jJ5FACohmIYopqlgSDbltJaapAb'];
-      //sendNotification(req, res, regTokens, gcm_message);
-    //} else {
-      req.models.User.qFind({user_ID: user_id})
-        .then(users=>{
-	  if(users.length > 0){
-            console.log(users);
-            regTokens = [users[0].registrationID];
-            sendNotification(req, res, regTokens, gcm_message);
-	  } else {
-            console.error("[Error] No user matched user.");
-	  }
-	})
-	.catch(err=>{
-          console.error(err);
-	});
-    //}
-   
+    req.models.User.qFind({ user_ID: user_id })
+      .then(users=>{
+	if(users.length > 0){
+          req.models.Device.qFind({ FK_user_ID: user_id })
+          .then(devices=>{
+            regTokens = devices.map(device=> device.registration_ID );
+            sendNotification(regTokens, gcm_message);
+      	  })
+	  .catch(err=>{
+            console.error(err);
+          }); 
+        } else {
+          console.error("[Error] No user matched user.");
+ 	}
+      })
+      .catch(err=>{
+        console.error(err);
+      });
+  },
+
+  createDeviceInfo: (req, res)=>{
+    var json = req.body;
+    var rid = json.registrationID;
+    var uid = json.userID;
+    var deviceInfo = json.deviceInfo;
+    req.models.Device.qFind({ registration_ID: rid, FK_user_ID: uid })
+      .then(data=>{
+        req.models.Device.qCreate({ FK_user_ID: uid, info: deviceInfo, registration_ID: rid })
+          .then(data=>{
+            res.send("successed");
+          })
+          .catch(err=>{
+            res.status(503).send("failed to create device info");
+          });
+      })
+      .catch(err=>{
+        res.status(503).send("failed to check device data");
+      });
   }
 
 }

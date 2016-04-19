@@ -11,6 +11,7 @@ export default {
 
     // Push Notification
     app.post("/api/me/notification/sendto", notification_controller.sendto);
+    app.post("/api/me/notification/create_device_info", notification_controller.createDeviceInfo);
 
     app.get("/api/me/candidates", candidates_controller.index);
     app.get("/api/users", users_controller.index);
