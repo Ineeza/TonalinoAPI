@@ -5,9 +5,9 @@ export default class EventMemberType {
   static init(db){
     return db.qDefine("eventMember_TYPE", {
       eventMember_TYPE_ID   : { type: "serial", key: true },
-      name                  : String,
-      created_DATE          : { type: "date", time: true },
-      updated_DATE          : { type: "date", time: true }
+      name                  : { type: "text", required: true},
+      created_DATE          : { type: "date", time: true, required: true},
+      updated_DATE          : { type: "date", time: true, required: true}
     }, {
       hooks: {
         beforeCreate: function(next){

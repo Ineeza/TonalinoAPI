@@ -4,18 +4,18 @@ import orm from 'orm';
 export default class User {
   static init(db){
     return db.qDefine("user", {
-      user_ID               : { type: "serial", key: true },
-      FK_user_TYPE_ID       : Number,
-      name                  : String,
-      facebook_ID           : String,
-      line_ID               : String,
-      description           : { type: "text", big:true},
-      picture               : { type: "text", defaultValue: "/img/common/no_image.png" },
-      email                 : String,
-      postalCode            : String,
-      area                  : { type: "text", big:true},
-      created_DATE          : { type: "date", time: true },
-      updated_DATE          : { type: "date", time: true }
+      user_ID           : { type: "serial", key: true },
+      FK_user_TYPE_ID   : { type: 'integer', required: true},
+      name              : { type: "text", required: true},
+      facebook_ID       : { type: "text", required: true},
+      line_ID           : { type: "text", required: true},
+      description       : { type: "text", big:true},
+      picture           : { type: "text", defaultValue: "/img/common/no_image.png" },
+      email             : { type: "text", required: true},
+      postalCode        : { type: "text", required: true},
+      area              : { type: "text", big:true},
+      created_DATE      : { type: "date", time: true, required: true},
+      updated_DATE      : { type: "date", time: true, required: true}
     }, {
       hooks: {
         beforeCreate: function(next){
