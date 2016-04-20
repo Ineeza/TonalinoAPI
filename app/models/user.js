@@ -1,5 +1,5 @@
 import orm from 'orm';
-
+import dateFunctions from './callback/date.js';
 
 export default class User {
   static init(db){
@@ -18,15 +18,8 @@ export default class User {
       updated_DATE          : { type: "date", time: true }
     }, {
       hooks: {
-        beforeCreate: function(next){
-          this.created_DATE = Date.now();
-          this.updated_DATE = Date.now();
-          return next();
-        },
-        beforeUpdate: function(next){
-          this.updated_DATE = Date.now();
-          return next();
-        }
+        beforeCreate: dateFunctions.createdDate,
+        beforeUpdate: dateFunctions.updatedDate
       },
       methods: {
         isEater: _=>{

@@ -63,7 +63,9 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
     models.NotificationType = NotificationTypeModel.init(db);
     models.NotificationIsRead = NotificationIsReadModel.init(db);
     models.Review = ReviewModel.init(db);
-    db.qSync().then(_=>{
+    db.qDrop()
+    db.qSync()
+    .then(_=>{
       Promise.all([
         models['User'].qCreate(SEED_DATA['users']),
         models['Device'].qCreate(SEED_DATA['devices']),

@@ -13,15 +13,8 @@ export default class Review {
       updated_DATE       : { type: "date", time: true }
     }, {
       hooks: {
-        beforeCreate: function(next){
-          this.created_DATE = Date.now();
-          this.updated_DATE = Date.now();
-          return next();
-        },
-        beforeUpdate: function(next){
-          this.updated_DATE = Date.now();
-          return next();
-        }
+        beforeCreate: dateFunctions.createdDate,
+        beforeUpdate: dateFunctions.updatedDate
       },
       methods: {
 

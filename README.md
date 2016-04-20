@@ -15,6 +15,9 @@
 ## see process
 - `gulp see`
 
+## seed
+- `gulp seed`
+
 # infrastructure
 - `wget git.io/nodebrew`
 - `perl nodebrew setup`
