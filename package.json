@@ -28,10 +28,11 @@
     "lodash": "^4.6.1",
     "method-override": "^2.3.5",
     "mysql": "^2.10.2",
+    "node-gcm": "^0.14.0",
     "orm": "git://github.com/shogochiai/node-orm2.git",
     "promise": "^7.1.1",
     "q-orm": "0.0.3",
-    "node-gcm": "^0.14.0",
+    "sendbird": "^2.4.2",
     "webpack": "^1.12.14"
   },
   "devDependencies": {

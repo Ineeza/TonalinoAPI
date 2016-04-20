@@ -22,6 +22,7 @@ import NotificationTypeModel from './app/models/notification_TYPE.js';
 import NotificationIsReadModel from './app/models/notificationIsRead.js';
 import ReviewModel from './app/models/review.js';
 
+import sendbird from 'sendbird';
 
 // vars
 let connection = (process.env.NODE_ENV === "production") ? { host: "0.0.0.0", port: 80 } : { host: "localhost", port: 3000 };

@@ -18,8 +18,8 @@ export default class User {
       updated_DATE          : { type: "date", time: true }
     }, {
       hooks: {
-        beforeCreate: dateFunctions.createdDate,
-        beforeUpdate: dateFunctions.updatedDate
+        beforeCreate: next=>{ return dateFunctions.createdDate(this, next) },
+        beforeUpdate: next=>{ return dateFunctions.updatedDate(this, next) }
       },
       methods: {
         isEater: _=>{

@@ -24,6 +24,7 @@ import ReviewModel from '../../app/models/review.js';
 
 import SEED_DATA from './data.js';
 
+import sendbird from 'sendbird';
 
 // vars
 let connection = (process.env.NODE_ENV === "production") ? { host: "0.0.0.0", port: 80 } : { host: "localhost", port: 3000 };
@@ -63,9 +64,12 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
     models.NotificationType = NotificationTypeModel.init(db);
     models.NotificationIsRead = NotificationIsReadModel.init(db);
     models.Review = ReviewModel.init(db);
+    console.log("Model readied...");
     db.qDrop()
+    console.log("Drop finished...");
     db.qSync()
     .then(_=>{
+      console.log("Sync finished...");
       Promise.all([
         models['User'].qCreate(SEED_DATA['users']),
         models['Device'].qCreate(SEED_DATA['devices']),
@@ -80,7 +84,7 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
         models['Review'].qCreate(SEED_DATA['reviews'])
       ])
       .then(data=>{
-        console.log(data);
+        console.log("Seed finished...");
         process.exit(0);
       });
     });
@@ -88,4 +92,5 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
 }));
 
 app.listen(connection.port, connection.host);
+
 

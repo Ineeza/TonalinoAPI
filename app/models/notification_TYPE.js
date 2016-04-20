@@ -1,4 +1,5 @@
 import orm from 'orm';
+import dateFunctions from './callback/date.js';
 
 
 export default class NotificationType {
@@ -10,8 +11,8 @@ export default class NotificationType {
       updated_DATE          : { type: "date", time: true }
     }, {
       hooks: {
-        beforeCreate: dateFunctions.createdDate,
-        beforeUpdate: dateFunctions.updatedDate
+        beforeCreate: next=>{ return dateFunctions.createdDate(this, next) },
+        beforeUpdate: next=>{ return dateFunctions.updatedDate(this, next) }
       },
       methods: {
 
