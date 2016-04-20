@@ -10,11 +10,10 @@ export default class Review {
       FK_TO_user_ID      : { type: 'integer', required: true},
       description        : { type: "text", big:true},
       rate               : { type: 'integer', required: true},
-      created_DATE       : { type: "date", time: true, required: true},
-      updated_DATE       : { type: "date", time: true, required: true}
+      created_DATE       : { type: "date", time: true, required: true, defaultValue: new Date },
+      updated_DATE       : { type: "date", time: true, required: true, defaultValue: new Date }
     }, {
       hooks: {
-        beforeCreate: next=>{ return dateFunctions.createdDate(this, next) },
         beforeUpdate: next=>{ return dateFunctions.updatedDate(this, next) }
       },
       methods: {

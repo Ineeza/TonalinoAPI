@@ -46,7 +46,7 @@ for(var i=1; i < 10; i++){
   var from_d = new Date(t.setDate(t.getDate() + 3));
   var to_d = new Date(t.setDate(t.getDate() + 6));
   events.push({
-    FK_user_TYPE_ID: randID(event_types), title: `DummyEvent${i}`,
+    FK_event_TYPE_ID: randID(event_types), FK_user_ID: randID(users), title: `DummyEvent${i}`,
     description: "", coverPicture: "", price: 1000, seats: 1000, FROM_DATE: from_d, TO_DATE: to_d
   });
 }
@@ -60,7 +60,7 @@ for(var i=1; i < 30; i++){
 
 var notifications = [];
 for(var i=1; i < 30; i++){
-  notifications.push({ FK_event_ID: randID(events), FK_user_ID: randID(users), FK_notification_TYPE_ID: randID(notification_types) });
+  notifications.push({ FK_event_ID: randID(events), FK_user_ID: randID(users), FK_notification_TYPE_ID: randID(notification_types), title: `title${i}`, description: `description${i}` });
 }
 
 

@@ -9,11 +9,10 @@ export default class NotificationIsRead {
       FK_notification_ID     : { type: 'integer', required: true},
       FK_user_ID             : { type: 'integer', required: true},
       isRead                 : { type: "boolean" },
-      created_DATE           : { type: "date", time: true, required: true},
-      updated_DATE           : { type: "date", time: true, required: true}
+      created_DATE           : { type: "date", time: true, required: true, defaultValue: new Date },
+      updated_DATE           : { type: "date", time: true, required: true, defaultValue: new Date }
     }, {
       hooks: {
-        beforeCreate: next=>{ return dateFunctions.createdDate(this, next) },
         beforeUpdate: next=>{ return dateFunctions.updatedDate(this, next) }
       },
       methods: {

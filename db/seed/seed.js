@@ -86,6 +86,10 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
       .then(data=>{
         console.log("Seed finished...");
         process.exit(0);
+      })
+      .catch(err=>{
+        console.log("Seed finished...", err);
+        process.exit(0);
       });
     });
   }
