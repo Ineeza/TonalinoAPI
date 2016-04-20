@@ -10,8 +10,9 @@ gulp.task('build-es6', function() {
 gulp.task('run', ["build-es6"], function(){
   exec('ps -ef | grep main.js | grep -v grep | awk \'{print $2}\' | xargs kill',function (err, stdout, stderr) {
     // console.log(err, stdout, stderr);
-    exec('NODE_ENV=development $(npm bin)/babel-node main.js &>> tonalino_development.log',function (err, stdout, stderr) {
-      // console.log(err, stdout, stderr);
+    exec('NODE_ENV=development $(npm bin)/babel-node main.js >> tonalino_development.log 2>&1',function (err, stdout, stderr) {
+      console.log(err, stdout, stderr);
+      process.exit(0);
     });
   });
 });

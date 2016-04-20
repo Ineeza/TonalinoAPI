@@ -4,10 +4,10 @@ import dateFunctions from './callback/date.js';
 export default class EventType {
   static init(db){
     return db.qDefine("event_TYPE", {
-      event_TYPE_ID      : { type: "serial", key: true },
-      name               : String,
-      created_DATE        : { type: "date", time: true },
-      updated_DATE        : { type: "date", time: true }
+      event_TYPE_ID    : { type: "serial", key: true },
+      name             : { type: "text", required: true},
+      created_DATE     : { type: "date", time: true , required: true},
+      updated_DATE     : { type: "date", time: true , required: true}
     }, {
       hooks: {
         beforeCreate: next=>{ return dateFunctions.createdDate(this, next) },
