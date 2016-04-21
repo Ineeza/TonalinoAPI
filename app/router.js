@@ -2,6 +2,8 @@ import me_controller from './controllers/me';
 import candidates_controller from './controllers/me/candidates';
 import users_controller from './controllers/users';
 import notification_controller from './controllers/me/notification';
+import message_controller from './controllers/me/message';
+import channel_controller from './controllers/me/channel';
 
 export default {
   run: (app)=>{
@@ -14,6 +16,8 @@ export default {
     app.post("/api/me/notification/create_device_info", notification_controller.createDeviceInfo);
 
     app.get("/api/me/candidates", candidates_controller.index);
+    app.get("/api/me/channels", channel_controller.index);
+    app.post("/api/me/channels", channel_controller.create);
     app.get("/api/users", users_controller.index);
     app.post("/api/users", users_controller.create);
   }

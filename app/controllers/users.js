@@ -1,7 +1,14 @@
+import Mapper from './_middleware/mapper';
+
 export default {
 
   index: (req, res)=>{
-    req.models.User.qFind({ userID: req.query.id }).then(users=>{
+    console.log(req.query);
+    req.models.User.qFind({ user_ID: req.query.userID }).then(users=>{
+      console.log(users.length);
+      users = users.map(user=>{
+        return Mapper.b2f("User", user);
+      });
       res.header('Access-Control-Allow-Origin', req.headers.origin);
       res.send(users);
     });
@@ -27,7 +34,7 @@ export default {
           role: "eater"
         };
         req.models.User.qCreate(user).then(_user=>{
-          user.id = _user.id;
+          user.userID = _user.user_ID;
           req.session.user = user;
           req.session.save(_=>{
             res.header('Access-Control-Allow-Origin', req.headers.origin);

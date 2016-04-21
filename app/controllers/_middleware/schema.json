@@ -1,0 +1,15 @@
+{
+  "User" : {
+    "user_ID": "userID",
+    "name": "username",
+    "facebook_ID": "facebookID",
+    "description": "description",
+    "email": "email",
+    "picture": "picture",
+    "postalCode": "zipcode",
+    "area": "area",
+    "FK_user_TYPE_ID": "FK_user_TYPE_ID",
+    "created_DATE": "created_DATE",
+    "updated_DATE": "updated_DATE"
+  }
+}
