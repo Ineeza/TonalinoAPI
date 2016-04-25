@@ -9,19 +9,11 @@ export default class Review {
       End_user_ID        : { type: 'integer', required: true},
       description        : { type: "text", big:true},
       rate               : { type: 'integer', required: true},
-      created_Date       : { type: "date", time: true, required: true},
-      updated_Date       : { type: "date", time: true, required: true}
+      created_Date       : { type: "date", time: true, required: true, defaultValue: new Date()},
+      updated_Date       : { type: "date", time: true, required: true, defaultValue: new Date()}
     }, {
       hooks: {
-        beforeCreate: function(next){
-          this.created_Date = Date.now();
-          this.updated_Date = Date.now();
-          return next();
-        },
-        beforeUpdate: function(next){
-          this.updated_Date = Date.now();
-          return next();
-        }
+        beforeUpdate: next=>{ return dateFunctions.updatedDate(this, next) }
       },
       methods: {
 
