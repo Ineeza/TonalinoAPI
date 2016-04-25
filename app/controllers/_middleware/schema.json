@@ -3,6 +3,7 @@
     "user_ID": "userID",
     "name": "username",
     "facebook_ID": "facebookID",
+    "line_ID": "lineID",
     "description": "description",
     "email": "email",
     "picture": "picture",
