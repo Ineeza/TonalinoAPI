@@ -1,7 +1,7 @@
 import me_controller from './controllers/me';
 import candidates_controller from './controllers/me/candidates';
 import users_controller from './controllers/users';
-import notification_controller from './controllers/me/push_notification';
+import push_notification_controller from './controllers/me/push_notification';
 
 export default {
   run: (app)=>{
