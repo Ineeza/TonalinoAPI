@@ -97,8 +97,8 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
 // register middlewares
 app.use(sessionStore);
 app.use(corser.create());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
 // run
