@@ -1,6 +1,6 @@
 import gcm from 'node-gcm';
 
-var sendNotification = (req, res, regToken, gcm_message)=>{
+var sendNotification = (req, res, regTokens, gcm_message)=>{
   // Set up the sender with you API key
   var sender = new gcm.Sender('AIzaSyCOCyeaPBtatF-VcfZIzb87lTXDsKwMJk0');
 
@@ -17,13 +17,11 @@ var sendNotification = (req, res, regToken, gcm_message)=>{
   });
 };
 
-
-
 export default {
+
   // Send to another user
   sendto: (req, res)=>{
     var json = req.body;
-
     var gcm_message = new gcm.Message();
 
     // Given values
@@ -42,26 +40,24 @@ export default {
     gcm_message.addData('message', message);
     gcm_message.addData('image', image);
 
-    var regTokens = "";
-    //if(user_id == 1){
-      //regTokens = ['dCNIYW8tdtU:APA91bFmkbmO6lRJ_98bAqZ5EZ3KrpACM4R1WWg1Qhsw5DcsTCTP8btlojaxbQ3w64urMSyvrBJSP6YGhZVXKz_0g7uCKA8IsICa3BtZeBYiqaGl6jJ5FACohmIYopqlgSDbltJaapAb'];
-      //sendNotification(req, res, regTokens, gcm_message);
-    //} else {
-      req.models.User.qFind({user_ID: user_id})
-        .then(users=>{
-	  if(users.length > 0){
-            console.log(users);
-            regTokens = [users[0].registrationID];
-            sendNotification(req, res, regTokens, gcm_message);
-	  } else {
-            console.error("[Error] No user matched user.");
-	  }
-	})
-	.catch(err=>{
-          console.error(err);
-	});
-    //}
-   
+    req.models.User.qFind({user_ID: user_id}).then(users=>{
+      if(users.length > 0){
+        req.models.Device.qFind({user_ID: user_id}).then(devices=>{
+          var regTokens = [];
+          for (var device of devices) {
+            regTokens.push(device.registration_ID);
+          }
+          console.log(regTokens);
+          sendNotification(req, res, regTokens, gcm_message);
+        });
+      } else {
+        console.error("[Error] No user matched user.");
+        res.status(404).send("[Error] No user matched user.");
+      }
+    }).catch(err=>{
+      console.error(err);
+      res.status(404).send("Error");
+    });
   }
 
 }

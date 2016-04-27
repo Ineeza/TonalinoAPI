@@ -50,6 +50,7 @@ let sessionStore = session({
 });
 
 // orm init
+console.log('started');
 app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}@${connection.host}/${options.config.database}`, {
   define: (db, models, next)=>{
     models.Device = DeviceModel.init(db);
@@ -78,8 +79,12 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
         models['Review'].qCreate(SEED_DATA['reviews'])
       ])
       .then(data=>{
-        console.log(data);
+        console.log('finished');
         process.exit(0);
+      })
+      .catch(err=>{
+        console.error(err);
+        process.exit(1);
       });
     });
   }

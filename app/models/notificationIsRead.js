@@ -5,22 +5,14 @@ export default class NotificationIsRead {
   static init(db){
     return db.qDefine("notificationIsRead", {
       notificationIsRead_ID  : { type: "serial", key: true },
-      FK_notification_ID     : { type: 'integer', required: true},
-      FK_user_ID             : { type: 'integer', required: true},
+      notification_ID     : { type: 'integer', required: true},
+      user_ID             : { type: 'integer', required: true},
       isRead                 : { type: "boolean" },
-      created_DATE           : { type: "date", time: true, required: true},
-      updated_DATE           : { type: "date", time: true, required: true}
+      created_Date           : { type: "date", time: true, required: true, defaultValue: new Date()},
+      updated_Date           : { type: "date", time: true, required: true, defaultValue: new Date()}
     }, {
       hooks: {
-        beforeCreate: function(next){
-          this.created_DATE = Date.now();
-          this.updated_DATE = Date.now();
-          return next();
-        },
-        beforeUpdate: function(next){
-          this.updated_DATE = Date.now();
-          return next();
-        }
+        beforeUpdate: next=>{ return dateFunctions.updatedDate(this, next) }
       },
       methods: {
 

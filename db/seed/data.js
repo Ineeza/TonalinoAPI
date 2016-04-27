@@ -27,8 +27,8 @@ notification_types.push({ name: "INVITED"  });
 var users = [];
 for(var i=1; i < 10; i++){
   users.push({
-    FK_user_TYPE_ID: randID(user_types), name: `DummyUser${i}`,
-    facebook_ID: "", line_ID: "", description: "", picture: "",
+    user_Type_ID: randID(user_types), name: `DummyUser${i}`,
+    API_facebook_ID: "", API_line_ID: "", description: "", picture: "",
     email: "", postalCode: "154-0001", area: ""
   });
 }
@@ -36,43 +36,43 @@ for(var i=1; i < 10; i++){
 
 var devices = [];
 for(var i=1; i < 10; i++){
-  devices.push({ FK_user_ID: randID(users), info: "iOS", registration_ID: regToken });
+  devices.push({ user_ID: randID(users), info: "iOS", registration_ID: regToken });
 }
 
 
 var events = [];
 for(var i=1; i < 10; i++){
   var t = new Date();
-  var from_d = new Date(t.setDate(t.getDate() + 3));
-  var to_d = new Date(t.setDate(t.getDate() + 6));
+  var start_date = new Date(t.setDate(t.getDate() + 3));
+  var end_date = new Date(t.setDate(t.getDate() + 6));
   events.push({
-    FK_user_TYPE_ID: randID(event_types), title: `DummyEvent${i}`,
-    description: "", coverPicture: "", price: 1000, seats: 1000, FROM_DATE: from_d, TO_DATE: to_d
+    event_Type_ID: randID(event_types), title: `DummyEvent${i}`,
+    description: "", coverPicture: "", price: 1000, seats: 1000, Start_Date: start_date, End_Date: end_date
   });
 }
 
 
 var event_members = [];
 for(var i=1; i < 30; i++){
-  event_members.push({ FK_event_ID: randID(events), FK_user_ID: randID(users), FK_eventMember_TYPE_ID: randID(event_member_types) });
+  event_members.push({ event_ID: randID(events), user_ID: randID(users), eventMember_Type_ID: randID(event_member_types) });
 }
 
 
 var notifications = [];
 for(var i=1; i < 30; i++){
-  notifications.push({ FK_event_ID: randID(events), FK_user_ID: randID(users), FK_notification_TYPE_ID: randID(notification_types) });
+  notifications.push({ title: 'イベントが作成されました。コーヒー売ります。', event_ID: randID(events), user_ID: randID(users), notification_Type_ID: randID(notification_types) });
 }
 
 
 var notification_is_reads = [];
 for(var i=1; i < 10; i++){
-  notification_is_reads.push({ FK_notification_ID: randID(notifications), FK_user_ID: randID(users), isRead: false });
+  notification_is_reads.push({ notification_ID: randID(notifications), user_ID: randID(users), isRead: false });
 }
 
 
 var reviews = [];
 for(var i=1; i < 10; i++){
-  reviews.push({ FK_FROM_user_ID: randID(users), FK_TO_user_ID: randID(users), description: `review${i}`, rate: Math.floor(Math.random()*5*10)/10 });
+  reviews.push({ Start_user_ID: randID(users), End_user_ID: randID(users), description: `review${i}`, rate: Math.floor(Math.random()*5*10)/10 });
 }
 
 export default {
