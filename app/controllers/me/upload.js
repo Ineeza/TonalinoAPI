@@ -6,7 +6,8 @@ export default {
     cloudinary.config({ cloud_name: "tonalino-uploader", api_key: 266983119754772, api_secret: "axwyImL1BjHg26lAx_YRaf-BZBk" });
 
     cloudinary.uploader.upload(req.body.image, result=>{
-      res.send(result.url);
+      console.log(result.url);
+      res.send({ url: result.url });
     })
   }
 }
