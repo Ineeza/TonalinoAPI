@@ -2,34 +2,30 @@ import SCHEMA from './schema.json';
 import _ from 'lodash';
 
 export default class Mapper {
-  static b2f(tableName, backendObject){
+  static b2f(modelName, backendObject){
     var frontendObject = {};
-    console.log(backendObject);
-    console.log(SCHEMA[tableName]);
     Object.keys(backendObject).map((key, i)=>{
       var backendFieldName = key;
-      var frontendFieldName = SCHEMA[tableName][backendFieldName];
+      var frontendFieldName = SCHEMA[modelName][backendFieldName];
       frontendObject[frontendFieldName] = backendObject[backendFieldName];
     });
-    console.log(frontendObject);
     return frontendObject;
   }
 
-  static f2b(tableName, frontendObject){
+  static f2b(modelName, frontendObject){
     var backendObject = {};
-    console.log(frontendObject);
-    console.log(SCHEMA[tableName]);
-    Object.keys(backendObject).map((key, i)=>{
+    Object.keys(frontendObject).map((key, i)=>{
       var frontendFieldName = key;
-      // retrieve firld from schema
-      var backendFieldName = _.uniq( Object.keys(SCHEMA[tableName]).map((key, i)=>{
-        var backendFieldNameCandidate = key;
-        var frontendFieldNameCandidate = SCHEMA[tableName][key];
-        return (frontendFieldNameCandidate === frontendFieldName) ? backendFieldNameCandidate : "";
-      }) )[0];
+      var backendFieldName = Mapper.inverseObject(SCHEMA[modelName])[frontendFieldName];
       backendObject[backendFieldName] = frontendObject[frontendFieldName];
     });
-    console.log(backendObject);
     return backendObject;
   }
+
+  static inverseObject (obj, keyIsNumber) {
+    return Object.keys(obj).reduceRight((ret, k) => {
+      return (ret[obj[k]] = keyIsNumber ? parseInt(k, 10) : k, ret);
+    }, {});
+  }
+
 }

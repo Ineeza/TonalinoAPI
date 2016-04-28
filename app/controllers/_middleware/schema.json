@@ -15,6 +15,7 @@
   },
   "Event" : {
     "event_ID": "eventID",
+    "user_ID": "userID",
     "event_Type_ID": "event_Type_ID",
     "title": "title",
     "description": "description",
