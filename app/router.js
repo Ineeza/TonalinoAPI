@@ -1,7 +1,11 @@
+import multer from 'multer';
+var upload = multer({ dest: 'uploads/' });
+
 import me_controller from './controllers/me';
 import candidates_controller from './controllers/me/candidates';
 import users_controller from './controllers/users';
 import push_notification_controller from './controllers/me/push_notification';
+import upload_controller from './controllers/me/upload';
 
 export default {
   run: (app)=>{
@@ -15,5 +19,7 @@ export default {
     app.get("/api/me/candidates", candidates_controller.index);
     app.get("/api/users", users_controller.index);
     app.post("/api/users", users_controller.create);
+
+    app.post("/api/upload", upload.single('image'), upload_controller.create);
   }
 };
