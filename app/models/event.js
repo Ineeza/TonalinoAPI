@@ -5,6 +5,7 @@ export default class Event {
     return db.qDefine("event", {
       event_ID          : { type: "serial", key: true },
       event_Type_ID     : { type: 'integer', required: true},
+      user_ID           : { type: 'integer', required: true},
       title             : { type: "text", required: true},
       description       : { type: "text", big:true},
       place             : { type: "text", big:true},

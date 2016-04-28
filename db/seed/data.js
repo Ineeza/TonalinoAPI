@@ -46,7 +46,7 @@ for(var i=1; i < 10; i++){
   var start_date = new Date(t.setDate(t.getDate() + 3));
   var end_date = new Date(t.setDate(t.getDate() + 6));
   events.push({
-    event_Type_ID: randID(event_types), title: `DummyEvent${i}`,
+    event_Type_ID: randID(event_types), user_ID: randID(users), title: `DummyEvent${i}`,
     description: "", coverPicture: "", price: 1000, seats: 1000, Start_Date: start_date, End_Date: end_date
   });
 }
@@ -74,6 +74,7 @@ var reviews = [];
 for(var i=1; i < 10; i++){
   reviews.push({ Start_user_ID: randID(users), End_user_ID: randID(users), description: `review${i}`, rate: Math.floor(Math.random()*5*10)/10 });
 }
+
 
 export default {
   devices: devices,
