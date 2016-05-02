@@ -5,7 +5,7 @@ export default class User {
   static init(db){
     return db.qDefine("user", {
       user_ID           : { type: "serial", key: true },
-      user_Type_ID      : { type: 'integer', required: true},
+      user_Type_ID      : { type: 'integer', required: true, defaultValue: 1 },
       name              : { type: "text", required: true},
       API_facebook_ID   : { type: "text", required: true},
       API_line_ID       : { type: "text", required: true},

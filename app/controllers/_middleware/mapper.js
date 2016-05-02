@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default class Mapper {
   static b2f(modelName, backendObject){
+    if(typeof modelName !== "string") console.error("Invalid first parameter.");
     var frontendObject = {};
     Object.keys(backendObject).map((key, i)=>{
       var backendFieldName = key;
@@ -13,6 +14,7 @@ export default class Mapper {
   }
 
   static f2b(modelName, frontendObject){
+    if(typeof modelName !== "string") console.error("Invalid first parameter.");
     var backendObject = {};
     Object.keys(frontendObject).map((key, i)=>{
       var frontendFieldName = key;
