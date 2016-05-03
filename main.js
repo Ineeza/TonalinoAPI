@@ -12,13 +12,13 @@ import methodOverride from "method-override";
 // Models
 import DeviceModel from './app/models/device.js';
 import UserModel from './app/models/user.js';
-import UserTypeModel from './app/models/user_TYPE.js';
+import UserTypeModel from './app/models/user_Type.js';
 import EventModel from './app/models/event.js';
-import EventTypeModel from './app/models/event_TYPE.js';
+import EventTypeModel from './app/models/event_Type.js';
 import EventMemberModel from './app/models/eventMember.js';
-import EventMemberTypeModel from './app/models/eventMember_TYPE.js';
+import EventMemberTypeModel from './app/models/eventMember_Type.js';
 import NotificationModel from './app/models/notification.js';
-import NotificationTypeModel from './app/models/notification_TYPE.js';
+import NotificationTypeModel from './app/models/notification_Type.js';
 import NotificationIsReadModel from './app/models/notificationIsRead.js';
 import ReviewModel from './app/models/review.js';
 
@@ -97,8 +97,8 @@ app.use(qOrm.qExpress(`mysql://${options.config.user}:${options.config.password}
 // register middlewares
 app.use(sessionStore);
 app.use(corser.create());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
 // run
